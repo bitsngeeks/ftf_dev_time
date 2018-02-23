@@ -27,7 +27,16 @@ export class LoginComponent implements OnInit {
 
       localStorage.setItem("token",result.json().token);
       this.usersService.getUser()
-      this.router.navigateByUrl('/admin'); 
+      .then((result) => {
+        console.log(result.json().role)
+        if(result.json().role){
+          this.router.navigateByUrl('/admin'); 
+        } else{
+          this.router.navigateByUrl('/devs'); 
+        }
+        
+      })
+      
       console.log(localStorage.getItem("token"));
     })
   }
